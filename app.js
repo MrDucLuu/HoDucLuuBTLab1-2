@@ -2,6 +2,7 @@
 const express = require('express')
 const cors = require('cors')
 const contactRouter = require('./routes/contact.route')
+const apiError = require('./api-error')
 // Create Express app
 const app = express()
 
@@ -12,4 +13,16 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 app.use("/api/contacts",contactRouter)
 
+// error 404 khi ko co route nao trung
+app.use((req,res,next)=>{
+    return next(new apiError(404,"Not Found"))
+})
+//xu ly loi
+app.use((err,req,res,next)=>{
+    return res.status(err.statusCode || 500).json({
+        message: err.massage || "Internal Server Error"
+    })
+})
+
+//export mode
 module.exports=app
