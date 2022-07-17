@@ -19,8 +19,8 @@ app.use((req,res,next)=>{
 })
 //xu ly loi
 app.use((err,req,res,next)=>{
-    return res.status(err.statusCode || 500).json({
-        message: err.massage || "Internal Server Error"
+    return res.status(error.statusCode || 500).json({
+        message: error.massage || "Internal Server Error"
     })
 })
 
